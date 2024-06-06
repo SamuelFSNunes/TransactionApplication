@@ -1,22 +1,29 @@
-from pymongo import MongoClient
+from mongoengine import Document
 
 class Repository:
-    def __init__(self):
-        self.client = MongoClient('mongodb://localhost:27017/')
-        self.db = self.client['mongodatabase']
-        self.collection = self.db['mongodatabase']
+    def __init__(self, model: Document):
+        self.model = model
 
     def get_all(self):
-        return list(self.collection.find({}, {'_id': 0}))
+        return list(self.model.objects.all())
 
-    def get_by_id(self, data_id):
-        return self.collection.find_one({'id': data_id}, {'_id': 0})
+    def get_by_id(self, object_id):
+        return self.model.objects(id=object_id).first()
 
     def create(self, data):
-        self.collection.insert_one(data)
+        obj = self.model(**data)
+        obj.save()
+        return obj
 
-    def update(self, data_id, new_data):
-        self.collection.update_one({'id': data_id}, {'$set': new_data})
+    def update(self, object_id, data):
+        obj = self.model.objects(id=object_id).first()
+        if obj:
+            obj.update(**data)
+            obj.reload()
+        return obj
 
-    def delete(self, data_id):
-        self.collection.delete_one({'id': data_id})
+    def delete(self, object_id):
+        obj = self.model.objects(id=object_id).first()
+        if obj:
+            obj.delete()
+        return obj
