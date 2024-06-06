@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from api.views import TestConnectionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', TestConnectionView.as_view(), name="repo")
 ]
