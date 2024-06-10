@@ -1,8 +1,10 @@
-from mongoengine import Document, StringField
 
-class Category(Document):
-    name = StringField(max_length=100, required=True)
-    description = StringField(required=False)
+class Category:
+    def __init__(self,
+                 name: str,
+                 description:str = None) -> None:
+        self.name = name
+        self.description = description
 
     def __str__(self):
         return self.name
