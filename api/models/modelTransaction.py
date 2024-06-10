@@ -1,14 +1,18 @@
-from mongoengine import Document, StringField, DecimalField, ReferenceField, DateTimeField
-from django.utils import timezone
+from datetime import datetime
 from api.models.modelCategory import Category
 from api.models.modelUser import User
 
-class Transaction(Document):
-    user = ReferenceField(User, required=True)
-    categoria = ReferenceField(Category, required=True)
-    amount = DecimalField(required=True, precision=2)
-    date = DateTimeField(default=timezone.now)
-    description = StringField()
+class Transaction:
+    def __init__(self, user: User, 
+                 categoria: Category,
+                amount: float, 
+                date: datetime = None, 
+                description: str = None) -> None:
+        self.user = user
+        self.categoria = categoria
+        self.amount = amount
+        self.date = date or datetime.now()
+        self.description = description
 
     def __str__(self):
         return f"{self.user.name} - {self.amount}"

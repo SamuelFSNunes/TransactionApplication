@@ -1,24 +1,12 @@
-"""
-URL configuration for core project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-from api.views import TestConnectionView
+from api.views import TestConnectionView, UserView, UserPOST, UserEDIT, UserDELETE
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', TestConnectionView.as_view(), name="repo")
+    path('api/users/', UserView.as_view(), name="users"), 
+    path('api/user/<id>', UserView.as_view(), name="user_detail"), 
+    path('api/user/add', UserPOST.as_view(), name="create-user"),
+    path('api/user/edit/<id>', UserEDIT.as_view(), name="edit-user"),
+    path('api/user/delete/<id>', UserDELETE.as_view(), name="delete-user"),
 ]
