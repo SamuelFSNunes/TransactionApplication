@@ -47,8 +47,8 @@
                     <p><strong>ID:</strong> {{ users.id }}</p>
                     <p><strong>Name:</strong> {{ users.name }}</p>
                     <p><strong>Email:</strong> {{ users.email }}</p>
-                    <a href="{% url 'edit-user' user.id %}"><i class="icon edit fas fa-edit"></i></a> <!-- Ícone de edição -->
-                    <a href="{% url 'delete-user' user.id %}"><i class="icon delete fas fa-trash-alt"></i></a> <!-- Ícone de exclusão -->
+                    <a href="{% url 'edit-user' users.id %}"><i class="icon edit fas fa-edit"></i></a> <!-- Ícone de edição -->
+                    <a href="{% url 'delete-user' users.id %}"><i class="icon delete fas fa-trash-alt"></i></a> <!-- Ícone de exclusão -->
                 </div>
             {% else %}
                 <!-- Multiple Users -->
