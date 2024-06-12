@@ -19,8 +19,8 @@ class UserPOST(APIView):
             if serializer.is_valid():
                 self.repository.create(serializer.validated_data)
             else:
-                print(serializer.errors)
+                return render(request, "user/userForm.html", {"form": userform, "errors": serializer.errors})
         else:
-            print(userform.errors)
+            return render(request, "user/userForm.html", {"form": userform, "errors": userform.errors})
 
         return redirect('users')
