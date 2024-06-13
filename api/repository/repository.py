@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from datetime import datetime, date
 
 class Repository:
     def __init__(self, model, collection):
@@ -26,7 +27,8 @@ class Repository:
         return self.model.from_dict(obj_dict)
 
     def update(self, object_id, data):
-        obj_dict = {k: v for k, v in data.items() if v is not None}
+        obj_dict = self.convert_dates(data)
+
         result = self.collection.update_one(
             {"_id": ObjectId(object_id)},
             {"$set": obj_dict}
@@ -39,3 +41,12 @@ class Repository:
     def delete(self, object_id):
         result = self.collection.delete_one({"_id": ObjectId(object_id)})
         return result.deleted_count > 0
+    
+    def convert_dates(self, data):
+        converted_data = {}
+        for key, value in data.items():
+            if isinstance(value, date):  # Verifica se é uma instância de datetime.date
+                converted_data[key] = datetime(value.year, value.month, value.day)
+            else:
+                converted_data[key] = value
+        return converted_data

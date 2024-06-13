@@ -1,1 +1,2 @@
-from .modelTransaction import Category, User, Transaction
+from .modelTransaction import Category, Transaction
+from .modelUser import User
