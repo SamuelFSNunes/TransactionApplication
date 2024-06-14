@@ -14,11 +14,11 @@ class CategoryEDIT(APIView):
             category = self.repository.get_by_id(id)
             if category:
                 categoryForm = CategoryForm(initial=category.to_dict())
-                return render(request, "category/categoryForm.html", {"form": categoryForm, "id": id})
+                return render(request, "category/categoryEditForm.html", {"form": categoryForm, "id": id})
             else:
-               return render(request, "category/categoryForm.html", {"form": categoryForm, 'errors': f'{Category.__name__} not found'}, status=status.HTTP_404_NOT_FOUND) 
+               return render(request, "category/categoryEditForm.html", {"form": categoryForm, 'errors': f'{Category.__name__} not found'}, status=status.HTTP_404_NOT_FOUND) 
         else:
-            return render(request, "category/categoryForm.html", {"form": categoryForm, "errors": "ID is required for edition"}, status=status.HTTP_400_BAD_REQUEST)
+            return render(request, "category/categoryEditForm.html", {"form": categoryForm, "errors": "ID is required for edition"}, status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request, id):
         categoryForm = CategoryForm(request.POST)
@@ -28,7 +28,7 @@ class CategoryEDIT(APIView):
             if serializer.is_valid():
                 self.repository.update(id, serializer.validated_data)
             else:
-                return render(request, "category/categoryForm.html", {"form": categoryForm, "errors": serializer.errors})
+                return render(request, "category/categoryEditForm.html", {"form": categoryForm, "errors": serializer.errors})
         else:
-            return render(request, "category/categoryForm.html", {"form": categoryForm, "errors": categoryForm.errors})
+            return render(request, "category/categoryEditForm.html", {"form": categoryForm, "errors": categoryForm.errors})
         return redirect('categories')

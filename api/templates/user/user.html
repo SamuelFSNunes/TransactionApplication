@@ -1,40 +1,16 @@
+{% extends 'main.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Inclui a biblioteca Font Awesome -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .user {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
-            position: relative; /* Adiciona posicionamento relativo para que os ícones possam ser posicionados absolutamente */
-        }
-        .user .icon {
-            position: absolute; /* Posicionamento absoluto para os ícones */
-            top: 10px; /* Ajusta a posição verticalmente */
-        }
-        .user .edit {
-            right: 40px; /* Ajusta a posição horizontalmente para o ícone de edição */
-        }
-        .user .delete {
-            right: 10px; /* Ajusta a posição horizontalmente para o ícone de exclusão */
-        }
-        .add-user {
-            margin-bottom: 20px;
-        }
-        .error {
-            color: red;
-        }
-    </style>
 </head>
 <body>
+    {% block content %}
     <h1><a href="{% url 'users' %}">Users</a></h1>
-    <div class="add-user">
+    <div class="add-cards">
         <a href="{% url 'create-user' %}"><i class="fas fa-user-plus"></i> Add New User</a>
     </div>
     {% if errors %}
@@ -43,7 +19,7 @@
         {% if users %}
             {% if users.id %}
                 <!-- Single User -->
-                <div class="user">
+                <div class="cards">
                     <p><strong>ID:</strong> {{ users.id }}</p>
                     <p><strong>Name:</strong> {{ users.name }}</p>
                     <p><strong>Email:</strong> {{ users.email }}</p>
@@ -53,7 +29,7 @@
             {% else %}
                 <!-- Multiple Users -->
                 {% for user in users %}
-                    <div class="user">
+                    <div class="cards">
                         <p><strong>ID:</strong> <a href="{% url 'user_detail' user.id %}">{{ user.id }}</a></p>
                         <p><strong>Name:</strong> {{ user.name }}</p>
                         <p><strong>Email:</strong> {{ user.email }}</p>
@@ -66,5 +42,6 @@
             <p>No users found.</p>
         {% endif %}
     {% endif %}
+    {% endblock %}
 </body>
 </html>

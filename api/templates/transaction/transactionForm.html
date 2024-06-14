@@ -1,3 +1,5 @@
+{% extends 'main.html' %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,16 +25,6 @@
         label {
             font-weight: bold;
         }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
         button[type="submit"] {
             background-color: #007bff;
             color: #ffffff;
@@ -48,6 +40,7 @@
     </style>
 </head>
 <body>
+    {% block content %}
     <div class="container">
         <h1>{{ id|yesno:"Update Transaction,Create Transaction" }}</h1>
         <form method="post">
@@ -67,5 +60,6 @@
             </div>
         {% endif %}
     </div>
+    {% endblock %}
 </body>
 </html>
