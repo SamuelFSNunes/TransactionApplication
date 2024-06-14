@@ -4,12 +4,30 @@ from rest_framework import status
 from api.serializers.categorySerializer import Category, CategorySerializer
 from api.repository.repository import Repository
 from api.forms.categoryForm import CategoryForm
+from typing import Any
+from django.http import HttpRequest
+from api.auth.authentication import *
 
 class CategoryEDIT(APIView):
     repository = Repository(Category, 'categories')
 
+    authenticate = False
+    user = None
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, id):
+        if not self.authenticate:
+            return redirect("login")
         if id:
             category = self.repository.get_by_id(id)
             if category:
@@ -21,6 +39,8 @@ class CategoryEDIT(APIView):
             return render(request, "category/categoryEditForm.html", {"form": categoryForm, "errors": "ID is required for edition"}, status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request, id):
+        if not self.authenticate:
+            return redirect("login")
         categoryForm = CategoryForm(request.POST)
         if categoryForm.is_valid():
             serializer = CategorySerializer(data=categoryForm.cleaned_data)

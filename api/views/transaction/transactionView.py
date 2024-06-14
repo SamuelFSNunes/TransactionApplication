@@ -1,17 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.views import APIView
 from rest_framework import status
 from api.serializers.categorySerializer import Category, CategorySerializer
 from api.serializers.transactionSerializer import Transaction, TransactionSerializer
 from api.repository.repository import Repository
 from datetime import datetime
+from typing import Any
+from django.http import HttpRequest
+from api.auth.authentication import *
 
 class TransactionView(APIView):
     transaction_repository = Repository(Transaction, 'transactions')
     category_repository = Repository(Category, 'categories')
     category_serializer = CategorySerializer
+
+    authenticate = False
+    user = None
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
     
     def get(self, request, id=None):
+        if not self.authenticate:
+            return redirect("login")
         if id:
             transaction = self.transaction_repository.get_by_id(id)
             if transaction:

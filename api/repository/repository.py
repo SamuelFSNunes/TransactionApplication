@@ -50,3 +50,7 @@ class Repository:
             else:
                 converted_data[key] = value
         return converted_data
+
+    def get_user_by_email_and_password(self, email, password):
+        document = self.collection.find_one({"email": email, "password": password})
+        return document

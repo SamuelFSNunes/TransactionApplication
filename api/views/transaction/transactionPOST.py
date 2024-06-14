@@ -6,13 +6,35 @@ from api.serializers.transactionSerializer import Transaction, CategorySerialize
 from api.serializers.categorySerializer import Category
 from api.repository.repository import Repository
 from api.forms.transactionForm import TransactionForm
+from typing import Any
+from django.http import HttpRequest
+from api.auth.authentication import *
 
 class TransactionPOST(APIView):
+
+    authenticate = False
+    user = None
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        cookie_token = request.COOKIES.get("auth_token", "Cookie not found")
+        error_code, _ = verifyToken(cookie_token)
+        print(error_code)
+
+        if error_code == 0:
+            user = getAuthenticatedUser(cookie_token)
+            self.authenticate = True
+
+        return super().dispatch(request, *args, **kwargs)
+    
     def get(self, request):
+        if not self.authenticate:
+            return redirect("login")
         form = TransactionForm()
         return render(request, "transaction/transactionForm.html", {"form": form})
     
     def post(self, request):
+        if not self.authenticate:
+            return redirect("login")
         form = TransactionForm(request.POST)
         if form.is_valid():
             # Obter os dados do formulário limpos
