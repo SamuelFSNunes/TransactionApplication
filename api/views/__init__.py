@@ -14,3 +14,4 @@ from .transaction.transactionEDIT import TransactionEDIT
 from .transaction.transactionDELETE import TransactionDELETE
 
 from .home.homeView import HomeView
+from .auth.loginView import LoginView, Logout
