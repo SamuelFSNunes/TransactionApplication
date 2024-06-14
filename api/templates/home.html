@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Gastos</title>
+</head>
+<body>
+    {% block content %}
+        <header>
+            <h1>Bem-vindo à API de Controle de Gastos</h1>
+        </header>
+        <main>
+            <h2>Sobre Este Aplicativo</h2>
+            <p>Este aplicativo permite que você gerencie suas transações financeiras e suas categorias.</p>
+            <p>Você pode visualizar, adicionar, editar e excluir transações e categorias.</p>
+        </main>
+    {% endblock %}
+    {% block footer %}
+        <footer>
+            <p>&copy; 2024 Controle de Gastos Application. Todos os direitos reservados.</p>
+        </footer>
+    {% endblock %}
+
+</body>
+</html>

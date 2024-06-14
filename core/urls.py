@@ -3,6 +3,7 @@ from django.urls import path
 from api.views import UserView, UserPOST, UserEDIT, UserDELETE
 from api.views import CategoryView, CategoryPOST, CategoryEDIT, categoryDELETE
 from api.views import TransactionPOST, TransactionView, TransactionEDIT, TransactionDELETE
+from api.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,7 @@ urlpatterns = [
     path('api/transaction/detail/<id>', TransactionView.as_view(), name="transaction-detail"),
     path('api/transaction/edit/<id>', TransactionEDIT.as_view(), name="edit-transaction"),
     path('api/transaction/delete/<id>', TransactionDELETE.as_view(), name="delete-transaction"),
+
+    #
+    path('', HomeView.as_view(), name="home")
 ]

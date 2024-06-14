@@ -12,3 +12,5 @@ from .transaction.transactionPOST import TransactionPOST
 from .transaction.transactionView import TransactionView
 from .transaction.transactionEDIT import TransactionEDIT
 from .transaction.transactionDELETE import TransactionDELETE
+
+from .home.homeView import HomeView
