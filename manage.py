@@ -3,20 +3,27 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
         from django.core.management import execute_from_command_line
+        from api.repository.repository import Repository
+        from api.models import User
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
 
+    # Código para criar usuário admin inicial
+    repository = Repository(User, 'users')
+    if not repository.get_user_by_email_and_password('root@root.com', 'root123'):
+        repository.create({"email":"root@root.com", "password":"root123"})
+        print('Usuário admin criado com sucesso.')
+
+    execute_from_command_line(sys.argv)
 
 if __name__ == '__main__':
     main()
