@@ -1,38 +1,14 @@
+{% extends 'main.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Categories</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .category {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
-            position: relative; /* Adiciona posicionamento relativo para que os ícones possam ser posicionados absolutamente */
-        }
-        .category .icon {
-            position: absolute; /* Posicionamento absoluto para os ícones */
-            top: 10px; /* Ajusta a posição verticalmente */
-        }
-        .category .edit {
-            right: 40px; /* Ajusta a posição horizontalmente para o ícone de edição */
-        }
-        .category .delete {
-            right: 10px; /* Ajusta a posição horizontalmente para o ícone de exclusão */
-        }
-        .add-category {
-            margin-bottom: 20px;
-        }
-        .error {
-            color: red;
-        }
-    </style>
 </head>
 <body>
+    {% block content %}
     <h1><a href="{% url 'categories' %}">Categories</a></h1>
     <div class="add-category">
         <a href="{% url 'create-category' %}"><i class="fas fa-plus icon"></i> Add New Category</a>
@@ -43,7 +19,7 @@
         {% if categories %}
             {% if categories.id %}
                 <!-- Single Category -->
-                <div class="category">
+                <div class="cards">
                     <p><strong>ID:</strong> {{ categories.id }}</p>
                     <p><strong>Name:</strong> {{ categories.name }}</p>
                     <p><strong>Description:</strong> {{ categories.description }}</p>
@@ -53,7 +29,7 @@
             {% else %}
                 <!-- Multiple Categories -->
                 {% for category in categories %}
-                    <div class="category">
+                    <div class="cards">
                         <p><strong>ID:</strong> <a href="{% url 'category-detail' category.id %}">{{ category.id }}</a></p>
                         <p><strong>Name:</strong> {{ category.name }}</p>
                         <p><strong>Description:</strong> {{ category.description }}</p>
@@ -66,5 +42,6 @@
             <p>No categories found.</p>
         {% endif %}
     {% endif %}
+    {% endblock %}
 </body>
 </html>
