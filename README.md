@@ -73,3 +73,5 @@ python manage.py runserver
 ### Observações
 
 Caso a conexão não seja bem sucedida com mongoDB, criar um database com o nome `mongodatabase` via launcher.
+
+o arquivo `mongodatabase_categories_json` é um JSON com categorias padrões já criadas, caso tenha interesse pode cadastrar direto no banco de dados com a collection de nome `categories`
