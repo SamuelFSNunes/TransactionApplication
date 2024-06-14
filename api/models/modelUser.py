@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, name, email, password, id=None):
+    def __init__(self, email, name=None, password=None, id=None):
         self.name = name
         self.email = email
         self.password = password
@@ -23,3 +23,6 @@ class User:
             password=data["password"],
             id=str(data["_id"]) if "_id" in data else None
         )
+    
+    def check_password(self, password):
+        return self.password == password
