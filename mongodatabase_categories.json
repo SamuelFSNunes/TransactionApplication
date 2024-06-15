@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "66689cb8a0f7e141cc58c2b5"
+  },
+  "name": "Alimentação",
+  "description": "Gastos com compras de supermercado, restaurantes, lanches, bebidas e qualquer tipo de alimento."
+},
+{
+  "_id": {
+    "$oid": "66689cc6a0f7e141cc58c2b6"
+  },
+  "name": "Transporte",
+  "description": "Gastos com transporte público, gasolina, manutenção de veículos, seguro de carro e estacionamento."
+},
+{
+  "_id": {
+    "$oid": "66689cd3a0f7e141cc58c2b7"
+  },
+  "name": "Saúde",
+  "description": "Despesas médicas, como consultas, medicamentos, exames, seguros de saúde e academia."
+},
+{
+  "_id": {
+    "$oid": "66689ce6a0f7e141cc58c2b8"
+  },
+  "name": "Educação",
+  "description": "Gastos com mensalidades escolares, materiais didáticos, cursos, livros e outros recursos educacionais."
+},
+{
+  "_id": {
+    "$oid": "66689d02a0f7e141cc58c2ba"
+  },
+  "name": "Lazer e Entreterimento",
+  "description": "Despesas com atividades de lazer, como cinema, teatro, shows, passeios, hobbies e assinaturas de streaming."
+},
+{
+  "_id": {
+    "$oid": "66689d17a0f7e141cc58c2bb"
+  },
+  "name": "Roupas e Acessórios",
+  "description": "Gastos com roupas, sapatos, acessórios e serviços de lavanderia."
+},
+{
+  "_id": {
+    "$oid": "66689d29a0f7e141cc58c2bc"
+  },
+  "name": "Dívidas e Empréstimos",
+  "description": "Pagamentos de dívidas, como empréstimos pessoais, cartões de crédito e financiamentos."
+},
+{
+  "_id": {
+    "$oid": "66689d35a0f7e141cc58c2bd"
+  },
+  "name": "Investimentos",
+  "description": "Valores destinados a investimentos, poupança, aposentadoria e outros tipos de aplicações financeiras."
+},
+{
+  "_id": {
+    "$oid": "66689d50a0f7e141cc58c2be"
+  },
+  "name": "Pets",
+  "description": "Gastos relacionados ao cuidado de animais de estimação, incluindo alimentação, saúde, brinquedos e acessórios."
+}]

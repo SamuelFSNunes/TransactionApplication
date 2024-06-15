@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Inclui a biblioteca Font Awesome -->
+</head>
+<body>
+    {% block content %}
+    <h1><a href="{% url 'users' %}">Users</a></h1>
+    <div class="add-cards">
+        <a href="{% url 'create-user' %}"><i class="fas fa-user-plus"></i> Add New User</a>
+    </div>
+    {% if errors %}
+        <div class="error">{{ errors }}</div>
+    {% else %}
+        {% if users %}
+            {% if users.id %}
+                <!-- Single User -->
+                <div class="cards">
+                    <p><strong>ID:</strong> {{ users.id }}</p>
+                    <p><strong>Name:</strong> {{ users.name }}</p>
+                    <p><strong>Email:</strong> {{ users.email }}</p>
+                    <a href="{% url 'edit-user' users.id %}"><i class="icon edit fas fa-edit"></i></a> <!-- Ícone de edição -->
+                    <a href="{% url 'delete-user' users.id %}"><i class="icon delete fas fa-trash-alt"></i></a> <!-- Ícone de exclusão -->
+                </div>
+            {% else %}
+                <!-- Multiple Users -->
+                {% for user in users %}
+                    <div class="cards">
+                        <p><strong>ID:</strong> <a href="{% url 'user_detail' user.id %}">{{ user.id }}</a></p>
+                        <p><strong>Name:</strong> {{ user.name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <a href="{% url 'edit-user' user.id %}"><i class="icon edit fas fa-edit"></i></a> <!-- Ícone de edição -->
+                        <a href="{% url 'delete-user' user.id %}"><i class="icon delete fas fa-trash-alt"></i></a> <!-- Ícone de exclusão -->
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <p>No users found.</p>
+        {% endif %}
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
